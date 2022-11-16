@@ -27,9 +27,10 @@ contract NFTAllowlist is ERC721Enumerable, Ownable {
             abi.encodePacked(
               "\x19Ethereum Signed Message:\n32", 
             hash
-            )
-            );
-            return ECDSA.recover(messageDigest, signature);
+            )                                                                          //we use abi.encode as it follows abi encode rules encodes all data in  bytes32 a
+            );                                                                         //we use abi.encodepacked as it use minimal memory to encode data
+            return ECDSA.recover(messageDigest, signature);                          // we use keccak256 for extra security so that no body extracts data so for more security 
+                                                                                     // we are encodind hash and signature twice
         }
 
     // Airdrop mint
